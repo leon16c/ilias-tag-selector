@@ -1,0 +1,146 @@
+<html>
+<head>
+	<title>Movie Filter</title>
+	<style>
+body {
+	font-family: sans-serif;
+	text-align: center;
+}
+
+h1 {
+	text-align: center;
+	color: blue;
+}
+
+#movies {
+	list-style-type: none;
+	padding: 0;
+}
+
+#movies > li {
+	border: 1px solid black;
+	background-color: white;
+	margin: 10px;
+	padding: 10px;
+	width: 200px;
+	text-align: center;
+	display: block;
+	border-radius: 10px;
+	color: black;
+}
+
+.container {
+	text-align: center;
+}
+.container ul {
+    border: 2px solid black;
+    display: inline-block;
+    margin: 10px 0;
+    padding: 2px;
+}
+.container li {
+    display: inline-block;
+}
+	</style>
+</head>
+<body>
+	<h1>Movie Filter</h1>
+    <p>Select the genres you want to include or exclude:</p>
+    <form id="filter-form">
+		<label>
+			Action:
+			<select name="action">
+				<option value="ignore" selected>Ignore</option>
+				<option value="include">Include</option>
+				<option value="exclude">Exclude</option>
+			</select>
+		</label>
+		<br>
+		<label>
+			Comedy:
+			<select name="comedy">
+				<option value="ignore" selected>Ignore</option>
+				<option value="include">Include</option>
+				<option value="exclude">Exclude</option>
+			</select>
+		</label>
+		<br>
+		<label>
+			Drama:
+			<select name="drama">
+				<option value="ignore" selected>Ignore</option>
+				<option value="include">Include</option>
+				<option value="exclude">Exclude</option>
+			</select>
+		</label>
+		<br>
+		<label>
+			Sci-Fi:
+			<select name="sci-fi">
+				<option value="ignore" selected>Ignore</option>
+				<option value="include">Include</option>
+				<option value="exclude">Exclude</option>
+			</select>
+		</label>
+		<br>
+		<label>
+			Horror:
+			<select name="horror">
+				<option value="ignore" selected>Ignore</option>
+				<option value="include">Include</option>
+				<option value="exclude">Exclude</option>
+			</select>
+		</label>
+		<br>
+		<label>
+			Mystery:
+			<select name="mystery">
+				<option value="ignore" selected>Ignore</option>
+				<option value="include">Include</option>
+				<option value="exclude">Exclude</option>
+			</select>
+		</label>
+		<br>
+	</form>
+    <br>
+	<div class="container">
+		<ul id="movies">
+			<li data-genres="action comedy">Lethal Weapon</li>
+			<li data-genres="comedy drama">Forrest Gump</li>
+			<li data-genres="drama">The Shawshank Redemption</li>
+			<li data-genres="sci-fi mystery">Blade Runner</li>
+			<li data-genres="action drama sci-fi horror">Aliens</li>
+			<li data-genres="action comedy drama">New Kids</li>
+		</ul>
+	</div>
+	<script>
+const movies = document.querySelectorAll('#movies > li');
+const filterForm = document.querySelector('#filter-form');
+
+filterForm.addEventListener('change', () => {
+	const selectedGenres = {
+		action: filterForm.elements.action.value,
+		comedy: filterForm.elements.comedy.value,
+		drama: filterForm.elements.drama.value,
+		'sci-fi': filterForm.elements['sci-fi'].value,
+		horror: filterForm.elements.horror.value,
+		mystery: filterForm.elements.mystery.value,
+	};
+	movies.forEach(movie => {
+		const genres = movie.dataset.genres.split(' ');
+		let showMovie = true;
+		for (const genre in selectedGenres) {
+			if (selectedGenres[genre] === 'include' && !genres.includes(genre)) {
+				showMovie = false;
+				break;
+			} else if (selectedGenres[genre] === 'exclude' && genres.includes(genre)) {
+				showMovie = false;
+				break;
+			}
+		}
+    movie.style.display = showMovie ? 'list-item' : 'none';
+	});
+});
+	</script>
+</body>
+</html>
