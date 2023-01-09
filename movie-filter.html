@@ -32,6 +32,7 @@ h1 {
 .container {
 	text-align: center;
 }
+
 .container ul {
     border: 2px solid black;
     display: inline-block;
@@ -41,12 +42,29 @@ h1 {
 .container li {
     display: inline-block;
 }
+
+#filter-form select option[value="ignore"] {
+	color: black;
+}
+
+#filter-form select option[value="include"] {
+  color: green;
+}
+
+#filter-form select option[value="exclude"] {
+  color: red;
+}
+
+
+
+
+
 	</style>
 </head>
 <body>
 	<h1>Movie Filter</h1>
-	<p>Select the genres you want to include or exclude:</p>
-    	<form id="filter-form">
+    <p>Select the genres you want to include or exclude:</p>
+    <form id="filter-form">
 		<label>
 			Action:
 			<select name="action">
@@ -102,7 +120,7 @@ h1 {
 		</label>
 		<br>
 	</form>
-    	<br>
+    <br>
 	<div class="container">
 		<ul id="movies">
 			<li data-genres="action comedy">Lethal Weapon</li>
@@ -117,7 +135,24 @@ h1 {
 const movies = document.querySelectorAll('#movies > li');
 const filterForm = document.querySelector('#filter-form');
 
+
 filterForm.addEventListener('change', () => {
+	const dropdowns = filterForm.querySelectorAll("select");
+	for (let i = 0; i < dropdowns.length; i++) { 
+  		switch (dropdowns[i].value) {
+			case "include":
+				dropdowns[i].style.color = "green";
+				break;
+			case "exclude":
+				dropdowns[i].style.color = "red";
+				break;
+			default:
+				dropdowns[i].style.color = "black";
+		}
+	}
+
+
+
 	const selectedGenres = {
 		action: filterForm.elements.action.value,
 		comedy: filterForm.elements.comedy.value,
@@ -138,7 +173,7 @@ filterForm.addEventListener('change', () => {
 				break;
 			}
 		}
-	movie.style.display = showMovie ? 'list-item' : 'none';
+    movie.style.display = showMovie ? 'list-item' : 'none';
 	});
 });
 	</script>
