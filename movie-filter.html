@@ -7,10 +7,6 @@ body {
 	text-align: center;
 }
 
-h1 {
-	text-align: center;
-	color: blue;
-}
 
 #movies {
 	list-style-type: none;
@@ -34,7 +30,7 @@ h1 {
 }
 
 .container ul {
-    border: 2px solid black;
+    border: 0px solid black;
     display: inline-block;
     margin: 10px 0;
     padding: 2px;
@@ -54,20 +50,22 @@ h1 {
 #filter-form select option[value="exclude"] {
   color: red;
 }
-
-
-
-
-
-	</style>
+</style>
 </head>
 <body>
-	<h1>Movie Filter</h1>
-    <p>Select the genres you want to include or exclude:</p>
     <form id="filter-form">
 		<label>
 			Action:
 			<select name="action">
+				<option value="ignore" selected>Ignore</option>
+				<option value="include">Include</option>
+				<option value="exclude">Exclude</option>
+			</select>
+		</label>
+		<br>
+		<label>
+			Adventure:
+			<select name="adventure">
 				<option value="ignore" selected>Ignore</option>
 				<option value="include">Include</option>
 				<option value="exclude">Exclude</option>
@@ -119,24 +117,96 @@ h1 {
 			</select>
 		</label>
 		<br>
+		<label>
+			Fantasy:
+			<select name="fantasy">
+				<option value="ignore" selected>Ignore</option>
+				<option value="include">Include</option>
+				<option value="exclude">Exclude</option>
+			</select>
+		</label>
+		<br>
+		<label>
+			Crime:
+			<select name="crime">
+				<option value="ignore" selected>Ignore</option>
+				<option value="include">Include</option>
+				<option value="exclude">Exclude</option>
+			</select>
+		</label>
+		<br>
 	</form>
     <br>
 	<div class="container">
 		<ul id="movies">
-			<li data-genres="action comedy">Lethal Weapon</li>
-			<li data-genres="comedy drama">Forrest Gump</li>
 			<li data-genres="drama">The Shawshank Redemption</li>
-			<li data-genres="sci-fi mystery">Blade Runner</li>
-			<li data-genres="action drama sci-fi horror">Aliens</li>
-			<li data-genres="action comedy drama">New Kids</li>
+			<li data-genres="crime drama">The Godfather</li>
+			<li data-genres="action crime drama">The Dark Knight</li>
+			<li data-genres="crime drama">12 Angry Men</li>
+			<li data-genres="drama">Schindler's List</li>
+			<li data-genres="action adventure drama fantasy">The Lord of the Rings: The Return of the King</li>
+			<li data-genres="crime drama">Pulp Fiction</li>
+			<li data-genres="adventure">The Good, the Bad and the Ugly</li>
+			<li data-genres="drama">Forrest Gump</li>
+			<li data-genres="drama">Fight Club</li>
+			<li data-genres="action adventure sci-fi">Inception</li>
+			<li data-genres="action sci-fi">The Matrix</li>
+			<li data-genres="crime drama">Goodfellas</li>
+			<li data-genres="drama">One Flew Over the Cuckoo's Nest</li>
+			<li data-genres="crime drama mystery">Se7en</li>
+			<li data-genres="action drama">Seven Samurai</li>
+			<li data-genres="drama fantasy">It's a Wonderful Life</li>
+			<li data-genres="crime drama">The Silence of the Lambs</li>
+			<li data-genres="crime drama">City of God</li>
+			<li data-genres="drama">Saving Private Ryan</li>
+			<li data-genres="comedy drama">Life Is Beautiful</li>
+			<li data-genres="adventure drama sci-fi">Interstellar</li>
+			<li data-genres="crime drama fantasy">The Green Mile</li>
+			<li data-genres="adventure comedy sci-fi">Back to the Future</li>
+			<li data-genres="horror mystery">Psycho</li>
+			<li data-genres="drama">The Pianist</li>
+
+			<li data-genres="horror sci-fi">Alien</li>
+			<li data-genres="drama horror">The Shining</li>
+			<li data-genres="horror mystery sci-fi">The Thing</li>
+			<li data-genres="horror">The Exorcist</li>
+			<li data-genres="horror">Halloween</li>
+			<li data-genres="crime drama horror">American Psycho</li>
+
+			<li data-genres="comedy drama">Intouchables</li>
+			<li data-genres="action adventure">Spider-Man: Into the Spider-Verse</li>
+			<li data-genres="comedy drama">3 Idiots</li>
+			<li data-genres="comedy">Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb</li>
+			<li data-genres="comedy drama">The Great Dictator</li>
+			<li data-genres="comedy crime drama">The Wolf of Wall Street</li>
+			<li data-genres="comedy crime">Snatch</li>
+			<li data-genres="comedy drama">The Truman Show</li>
+			<li data-genres="adventure comedy">Klaus</li>
+			<li data-genres="action comedy crime">Lock, Stock and Two Smoking Barrels</li>
+
+			<li data-genres="action adventure fantasy">Star Wars</li>
+			<li data-genres="action comedy fantasy">Toy Story</li>
+			<li data-genres="adventure comedy">Inside Out</li>
+			<li data-genres="drama fantasy">Pan's Labyrinth</li>
+			<li data-genres="adventure comedy fantasy">Monty Python and the Holy Grail</li>
+
+			<li data-genres="drama mystery sci-fi">The Prestige</li>
+			<li data-genres="drama mystery">Apocalypse Now</li>
+			<li data-genres="crime drama mystery">The Usual Suspects</li>
+			<li data-genres="action drama mystery">Oldboy</li>
+			<li data-genres="mystery">Memento</li>
+			<li data-genres="drama mystery">Citizen Kane</li>
+						
 		</ul>
 	</div>
 	<script>
+
 const movies = document.querySelectorAll('#movies > li');
 const filterForm = document.querySelector('#filter-form');
 
 
 filterForm.addEventListener('change', () => {
+	
 	const dropdowns = filterForm.querySelectorAll("select");
 	for (let i = 0; i < dropdowns.length; i++) { 
   		switch (dropdowns[i].value) {
@@ -151,16 +221,18 @@ filterForm.addEventListener('change', () => {
 		}
 	}
 
-
-
 	const selectedGenres = {
 		action: filterForm.elements.action.value,
+		adventure: filterForm.elements.adventure.value,
 		comedy: filterForm.elements.comedy.value,
 		drama: filterForm.elements.drama.value,
 		'sci-fi': filterForm.elements['sci-fi'].value,
 		horror: filterForm.elements.horror.value,
 		mystery: filterForm.elements.mystery.value,
+		fantasy: filterForm.elements.fantasy.value,
+		crime: filterForm.elements.crime.value
 	};
+
 	movies.forEach(movie => {
 		const genres = movie.dataset.genres.split(' ');
 		let showMovie = true;
