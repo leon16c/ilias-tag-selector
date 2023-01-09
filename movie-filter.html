@@ -45,8 +45,8 @@ h1 {
 </head>
 <body>
 	<h1>Movie Filter</h1>
-    <p>Select the genres you want to include or exclude:</p>
-    <form id="filter-form">
+	<p>Select the genres you want to include or exclude:</p>
+    	<form id="filter-form">
 		<label>
 			Action:
 			<select name="action">
@@ -102,7 +102,7 @@ h1 {
 		</label>
 		<br>
 	</form>
-    <br>
+    	<br>
 	<div class="container">
 		<ul id="movies">
 			<li data-genres="action comedy">Lethal Weapon</li>
@@ -138,7 +138,7 @@ filterForm.addEventListener('change', () => {
 				break;
 			}
 		}
-    movie.style.display = showMovie ? 'list-item' : 'none';
+	movie.style.display = showMovie ? 'list-item' : 'none';
 	});
 });
 	</script>
