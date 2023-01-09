@@ -5,6 +5,7 @@
 body {
 	font-family: sans-serif;
 	text-align: center;
+	zoom: 200%;
 }
 
 
@@ -38,6 +39,8 @@ body {
 .container li {
     display: inline-block;
 }
+
+
 
 #filter-form select option[value="ignore"] {
 	color: black;
@@ -138,9 +141,10 @@ body {
 	</form>
     <br>
 	<div class="container">
-		<ul id="movies">
-			<li data-genres="drama">The Shawshank Redemption</li>
-			<li data-genres="crime drama">The Godfather</li>
+		<ul id="movies" style="overflow-y:scroll;height:300px;">
+			<!-- Top 30 filme -->
+			<li data-genres="drama"><a href="https://www.imdb.com/title/tt0111161" target="_blank">The Shawshank Redemption</a></li>
+			<li data-genres="crime drama"><a href="https://www.imdb.com/title/tt0068646" target="_blank">The Godfather</a></li>
 			<li data-genres="action crime drama">The Dark Knight</li>
 			<li data-genres="crime drama">12 Angry Men</li>
 			<li data-genres="drama">Schindler's List</li>
@@ -165,14 +169,17 @@ body {
 			<li data-genres="adventure comedy sci-fi">Back to the Future</li>
 			<li data-genres="horror mystery">Psycho</li>
 			<li data-genres="drama">The Pianist</li>
-
+			
+			<!-- Horror  -->
 			<li data-genres="horror sci-fi">Alien</li>
 			<li data-genres="drama horror">The Shining</li>
 			<li data-genres="horror mystery sci-fi">The Thing</li>
 			<li data-genres="horror">The Exorcist</li>
 			<li data-genres="horror">Halloween</li>
 			<li data-genres="crime drama horror">American Psycho</li>
-
+			<li data-genres="horror mystery"><a href="https://www.imdb.com/title/tt1457767" target="_blank">The Conjuring</a></li>
+			
+			<!-- Comedy  -->
 			<li data-genres="comedy drama">Intouchables</li>
 			<li data-genres="action adventure">Spider-Man: Into the Spider-Verse</li>
 			<li data-genres="comedy drama">3 Idiots</li>
@@ -184,19 +191,20 @@ body {
 			<li data-genres="adventure comedy">Klaus</li>
 			<li data-genres="action comedy crime">Lock, Stock and Two Smoking Barrels</li>
 
+			<!-- Fantasy -->
 			<li data-genres="action adventure fantasy">Star Wars</li>
 			<li data-genres="action comedy fantasy">Toy Story</li>
 			<li data-genres="adventure comedy">Inside Out</li>
 			<li data-genres="drama fantasy">Pan's Labyrinth</li>
 			<li data-genres="adventure comedy fantasy">Monty Python and the Holy Grail</li>
 
+			<!-- Mystery -->
 			<li data-genres="drama mystery sci-fi">The Prestige</li>
 			<li data-genres="drama mystery">Apocalypse Now</li>
 			<li data-genres="crime drama mystery">The Usual Suspects</li>
 			<li data-genres="action drama mystery">Oldboy</li>
 			<li data-genres="mystery">Memento</li>
-			<li data-genres="drama mystery">Citizen Kane</li>
-						
+			<li data-genres="drama mystery">Citizen Kane</li>			
 		</ul>
 	</div>
 	<script>
@@ -204,9 +212,18 @@ body {
 const movies = document.querySelectorAll('#movies > li');
 const filterForm = document.querySelector('#filter-form');
 
+// sort movies
+const moviesList = Array.from(movies);
+moviesList.sort((a, b) => a.textContent.localeCompare(b.textContent));
+const moviesContainer = document.querySelector('#movies');
+moviesList.forEach(li => moviesContainer.appendChild(li));
+
+
+
+
+
 
 filterForm.addEventListener('change', () => {
-	
 	const dropdowns = filterForm.querySelectorAll("select");
 	for (let i = 0; i < dropdowns.length; i++) { 
   		switch (dropdowns[i].value) {
